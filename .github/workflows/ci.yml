@@ -15,9 +15,23 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
+    - name: Set env
+      run: |
+        echo GITHUB_REF=${GITHUB_REF}
+        GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)
+        # set some environment variables to be used in the remaining job steps
+        echo ::set-env name=GITHUB_SHA_SHORT::${GITHUB_SHA_SHORT}
+        echo ::set-env name=ARTIFACTS_NAME::deploymentArtifacts-${GITHUB_SHA_SHORT}
+        mkdir -p target/artifacts
+        echo foo > target/artifacts/foo.txt
     - name: On push
       run: |
         echo Triggered by push
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{ env.ARTIFACTS_NAME }}
+        path: target/artifacts
         
   pr:
     if: github.event_name == 'pull_request'
