@@ -2,6 +2,10 @@ name: CI
 
 on: 
   push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
   pull_request:
   release:
     types: [published]
@@ -10,12 +14,7 @@ jobs:
   build:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
-
     - name: On push
       run: |
         echo Triggered by push
@@ -23,17 +22,14 @@ jobs:
   pr:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: On pull-request      
+    - name: On pull-request1      
       run: |
         echo Triggered by pull_request
 
   release:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
-
     steps:
     - name: On release
       run: |
