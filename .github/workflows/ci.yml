@@ -26,6 +26,7 @@ jobs:
         echo Triggered by pull_request
 
   release:
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
     - name: On release
