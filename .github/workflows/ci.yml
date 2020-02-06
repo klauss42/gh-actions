@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: On pull-request      
+    - name: On pull-request1      
       run: |
         echo Triggered by pull_request
 
