@@ -8,7 +8,7 @@ on:
     
 jobs:
   build:
-    if: github.event == 'push'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -17,12 +17,11 @@ jobs:
       run: echo Hello, world!
 
     - name: On push
-      if: github.event == 'push'
       run: |
         echo Triggered by push
         
   pr:
-    if: github.event == 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +31,7 @@ jobs:
         echo Triggered by pull_request
 
   release:
-    if: github.event == 'release'
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
 
     steps:
