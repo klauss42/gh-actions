@@ -8,7 +8,7 @@ on:
     
 jobs:
   build:
-
+    if: github.event == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -22,20 +22,20 @@ jobs:
         echo Triggered by push
         
   pr:
+    if: github.event == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: On pull-request
-      if: github.event == 'pull_request'
+    - name: On pull-request      
       run: |
         echo Triggered by pull_request
 
   release:
+    if: github.event == 'release'
     runs-on: ubuntu-latest
 
     steps:
     - name: On release
-      if: github.event == 'release'
       run: |
         echo Triggered by release
